@@ -67,7 +67,8 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpCount < maxJump)
+        //if (Input.GetButtonDown("Jump") && jumpCount < maxJump)
+        if (Input.GetButtonDown("Jump") && !anim.GetBool("isJump"))
         {
             anim.SetBool("isWalk", false);
             anim.SetBool("isJump", true);
@@ -106,7 +107,7 @@ public class PlayerCtrl : MonoBehaviour
 
         if (isPlatform)
         {
-            jumpCount = 0;
+            //jumpCount = 0;
 
             anim.SetBool("isJump", false);
             anim.SetBool("isFall", false);
