@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyCtrl : MonoBehaviour
 {
-    public GameObject rayPos;
-
     private bool isDead = false;
 
     private int health = 3;
@@ -13,11 +11,13 @@ public class EnemyCtrl : MonoBehaviour
     private float moveSpeed = 2f;
 
     Animator anim;
+    Rigidbody2D rigid;
     SpriteRenderer sprite;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -31,9 +31,10 @@ public class EnemyCtrl : MonoBehaviour
     {
         if (!isDead)
         {
-            RaycastHit2D rayHit = Physics2D.Raycast(rayPos.transform.position, Vector2.down, 1.1f, LayerMask.GetMask("Platform"));
+            Vector2 frontVec = new Vector2(rigid.position.x + direction, rigid.position.y);
+            RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1.1f, LayerMask.GetMask("Platform"));
 
-            if (!rayHit)
+            if (rayHit.collider == null)
             {
                 direction *= -1;
             }
