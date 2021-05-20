@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerCtrl : MonoBehaviour
 {
     private float moveSpeed = 4f;
-
     private float jumpPower = 6f;
     private int maxJump = 1;
     private int jumpCount = 0;
+
+    private float shotTime = 0f;
+    private float shotDelayTime = 0.5f;
 
     private bool isPlatform;
 
@@ -86,23 +88,32 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Shot()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(shotTime >= shotDelayTime)
         {
-            float direction = 0;
-
-            if (sprite.flipX)
+            if (Input.GetButtonDown("Fire1"))
             {
-                direction = -1; //哭率
-            }
-            else
-            {
-                direction = 1; //坷弗率
-            }
+                shotTime = 0f;
 
-            myAudio.Play();
+                float direction = 0;
 
-            GameObject bulletPrefab = Instantiate(Resources.Load<GameObject>("Bullet"), shotPos.position, Quaternion.identity);
-            bulletPrefab.GetComponent<Bullet>().direction = direction;
+                if (sprite.flipX)
+                {
+                    direction = -1; //哭率
+                }
+                else
+                {
+                    direction = 1; //坷弗率
+                }
+
+                myAudio.Play();
+
+                GameObject bulletPrefab = Instantiate(Resources.Load<GameObject>("Bullet"), shotPos.position, Quaternion.identity);
+                bulletPrefab.GetComponent<Bullet>().direction = direction;
+            }
+        }
+        else
+        {
+            shotTime += Time.deltaTime;
         }
     }
 
