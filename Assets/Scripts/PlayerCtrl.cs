@@ -13,16 +13,19 @@ public class PlayerCtrl : MonoBehaviour
     private bool isPlatform;
 
     public Transform shotPos;
+    public Transform checkPos;
 
     Animator anim;
     Rigidbody2D rigid;
     SpriteRenderer sprite;
+    AudioSource myAudio;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        myAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -96,6 +99,8 @@ public class PlayerCtrl : MonoBehaviour
                 direction = 1; //¿À¸¥ÂÊ
             }
 
+            myAudio.Play();
+
             GameObject bulletPrefab = Instantiate(Resources.Load<GameObject>("Bullet"), shotPos.position, Quaternion.identity);
             bulletPrefab.GetComponent<Bullet>().direction = direction;
         }
@@ -103,7 +108,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private void CheckPlatform()
     {
-        isPlatform = Physics2D.OverlapCircle(transform.position, 0.05f, LayerMask.GetMask("Platform"));
+        isPlatform = Physics2D.OverlapCircle(checkPos.transform.position, 0.05f, LayerMask.GetMask("Platform"));
 
         if (isPlatform)
         {
