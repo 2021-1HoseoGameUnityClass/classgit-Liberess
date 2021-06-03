@@ -23,8 +23,11 @@ public class EnemyCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckRay();
-        Move();
+        if(DataManager.Instance.isPlay)
+        {
+            CheckRay();
+            Move();
+        }
     }
 
     private void CheckRay()
