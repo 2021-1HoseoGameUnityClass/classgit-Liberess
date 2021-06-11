@@ -16,13 +16,9 @@ public class UIManager : MonoBehaviour
     public void SetHp()
     {
         for(int i = 0; i < 3 - DataManager.Instance.playerHp; i++)
-        {
             playerHpObjs[i].SetActive(false);
-        }
 
         if(DataManager.Instance.playerHp <= 0)
-        {
             DataManager.Instance.GameOver();
-        }
     }
 }

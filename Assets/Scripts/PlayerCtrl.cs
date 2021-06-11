@@ -26,6 +26,8 @@ public class PlayerCtrl : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         myAudio = GetComponent<AudioSource>();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
